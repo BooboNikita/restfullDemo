@@ -1,61 +1,43 @@
 package com.example.restfulldemo.Bean;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-public class DemoUserLog {
+public class DemoUserLog extends BaseUserLog implements Serializable {
+
 
     @Id
-    @GeneratedValue
-    private Integer id;
-
-    @Column
-    private Date createTime;
-
-    @Column
-    private String userName;
-
-    @Column
-    private String userIp;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getUserIp() {
-        return userIp;
-    }
-
-    public void setUserIp(String userIp) {
-        this.userIp = userIp;
-    }
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Override
-    public String toString() {
-        return "RoncooUserLog [id=" + id + ", createTime=" + createTime + ", userName=" + userName + ", userIp=" + userIp + "]";
+    public Integer getId() {
+        return super.getId();
+    }
+
+    // 可以添加JPA特有的注解
+    @Column(name = "create_time")
+    @Override
+    public Date getCreateTime() {
+        return super.getCreateTime();
+    }
+
+    @Column(name = "user_name", length = 100)
+    @Override
+    public String getUserName() {
+        return super.getUserName();
+    }
+
+    @Column(name = "user_name", length = 100)
+    @Override
+    public void setUserName(String userName) {
+        super.setUserName(userName);
+    }
+
+    @Column(name = "user_ip", length = 50)
+    @Override
+    public String getUserIp() {
+        return super.getUserIp();
     }
 }
