@@ -20,8 +20,8 @@ public class TimeInterceptor implements HandlerInterceptor {
             throws Exception {
 
         System.out.println("这里是preHandle");
-        System.out.println(((HandlerMethod)handler).getBean().getClass().getName());
-        System.out.println(((HandlerMethod)handler).getMethod().getName());
+//        System.out.println(((HandlerMethod)handler).getBean().getClass().getName());
+//        System.out.println(((HandlerMethod)handler).getMethod().getName());
 
         request.setAttribute("startTime", new Date().getTime());
 

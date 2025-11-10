@@ -16,12 +16,16 @@ spring:
   
   # Redis 配置
   cache:
-    type: redis
-    redis:
-      time-to-live: 36000000
-      cache-null-values: true
-      key-prefix: "cache:"
-      use-key-prefix: true
+    type: jcache
+    jcache:
+      config: classpath:ehcache.xml
+  #  cache:
+#    type: redis
+#    redis:
+#      time-to-live: 36000000
+#      cache-null-values: true
+#      key-prefix: "cache:"
+#      use-key-prefix: true
   
   # ActiveMQ 配置
   activemq:
@@ -33,7 +37,6 @@ spring:
     time-zone: Asia/Shanghai
 
 # MyBatis 配置
-mybatis:
   # 指定 mapper.xml 文件位置，如果没有可以不配置
 #  mapper-locations: classpath:mybatis/*.xml
 #  configuration:
@@ -53,7 +56,12 @@ mybatis:
       exclude: static/**,templates/**
     livereload:
       enabled: true
-  config-location: classpath:mybatis-config.xml
+  # 安全配置
+#  security:
+#    user:
+#      name: admin
+#      password: admin
+#      roles: ADMIN
 
 demo:
   secret: ${random.value}
@@ -64,6 +72,21 @@ demo:
 logging:
   config: classpath:logback-demo.xml
 
+mybatis:
+  config-location: classpath:mybatis-config.xml
+
+# Actuator 配置
+management:
+  endpoint:
+    shutdown:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      base-path: /manage
+  server:
+    port: 8081
 ---
 spring:
   config:
@@ -80,6 +103,14 @@ spring:
       minimum-idle: 10
       idle-timeout: 600000
       max-lifetime: 1800000
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      filter:
+        config:
+          enabled: true
+        stat:
+          enabled: true
+
   data:
     redis:
       host: localhost

@@ -14,6 +14,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jms.annotation.EnableJms;
 
@@ -25,6 +26,7 @@ import java.util.EnumSet;
 @EnableCaching
 @EnableJms
 @EnableRabbit
+@ImportResource(locations = { "classpath:druid-bean.xml" })
 @MapperScan(basePackages = "com.example.restfulldemo.Dao", 
             annotationClass = org.apache.ibatis.annotations.Mapper.class)
 @EnableJpaRepositories(basePackages = "com.example.restfulldemo.Dao")

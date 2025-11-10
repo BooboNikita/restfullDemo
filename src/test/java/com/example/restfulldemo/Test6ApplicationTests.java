@@ -6,9 +6,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -16,6 +19,9 @@ public class Test6ApplicationTests {
 
     @Autowired
     private DemoUserLogCache demoUserLogCache;
+
+    @Autowired
+    private RestTemplateBuilder restTemplateBuilder;
 
     @Test
     public void testCache() {
@@ -50,5 +56,15 @@ public class Test6ApplicationTests {
         System.out.println("\n删除后查询（应该从数据库获取）:");
         DemoUserLog user4 = demoUserLogCache.selectById(testId);
         System.out.println("查询结果: " + user4);
+    }
+
+    @Test
+    public void getForObject() {
+        DemoUserLog bean = restTemplateBuilder.build().getForObject("http://localhost:8080/rest/update/{id}", DemoUserLog.class, 52);
+        System.out.println(bean);
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("id", 52);
+        bean = restTemplateBuilder.build().postForObject("http://localhost:8080/rest/update", map, DemoUserLog.class);
+        System.out.println(bean);
     }
 }

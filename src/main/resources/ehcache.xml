@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://www.ehcache.org/ehcache.xsd">
+
+    <!-- 默认缓存配置 -->
+    <cache alias="demoCache">
+        <key-type>java.lang.String</key-type>
+        <value-type>com.example.restfulldemo.Bean.DemoUserLog</value-type>
+        <expiry>
+            <ttl unit="minutes">30</ttl>
+        </expiry>
+        <heap unit="entries">1000</heap>
+    </cache>
+
+</config>
